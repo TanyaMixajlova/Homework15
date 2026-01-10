@@ -8,20 +8,39 @@ public class Order {
     public Order(String customer, Product[] basket) {
         this.customer = customer;
         this.basket = basket;
-
-
     }
+
     @Override
     public String toString() {
         return "Покупатель " + customer + Arrays.toString(basket);
     }
-    @Override
+
     public boolean equals(Object o) {
-        if (this == o) return true;
+        if (this == o) {
+            return true;
+        }
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
         Order order = (Order) o;
-        return Objects.equals(customer, order.customer) && Arrays.equals(basket, order.basket);
+        if (!Objects.equals(this.customer, order.customer)) {
+            return false;
+        }
+        if (this.basket == order.basket) {
+            return true;
+        }
+        if (this.basket == null || order.basket == null) {
+            return false;
+        }
+        if (this.basket.length != order.basket.length) {
+            return false;
+        }
+        for (int i = 0; i < this.basket.length; i++) {
+            if (!Objects.equals(this.basket[i], order.basket[i])) {
+                return false;
+            }
+        }
+        return true;
     }
 }
+
