@@ -15,6 +15,7 @@ public class Order {
         return "Покупатель " + customer + Arrays.toString(basket);
     }
 
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -23,7 +24,13 @@ public class Order {
             return false;
         }
         Order order = (Order) o;
-        if (!Objects.equals(this.customer, order.customer)) {
+        if (this.customer == null && order.customer == null) {
+            return true;
+        }
+        if (this.customer == null || order.customer == null) {
+            return false;
+        }
+        if (!this.customer.equals(order.customer)) {
             return false;
         }
         if (this.basket == order.basket) {
@@ -36,7 +43,13 @@ public class Order {
             return false;
         }
         for (int i = 0; i < this.basket.length; i++) {
-            if (!Objects.equals(this.basket[i], order.basket[i])) {
+            if (this.basket[i] == null && order.basket[i] == null) {
+                continue;
+            }
+            if (this.basket[i] == null || order.basket[i] == null) {
+                return false;
+            }
+            if (!this.basket[i].equals(order.basket[i])) {
                 return false;
             }
         }
